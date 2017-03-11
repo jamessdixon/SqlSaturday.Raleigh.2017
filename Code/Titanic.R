@@ -1,21 +1,13 @@
-#Get Data
-View(Titanic)
 
-#titanicUri <- 'https://kaggle2.blob.core.windows.net/competitions-data/kaggle/3136/train.csv?sv=2012-02-12&se=2016-08-21T12%3A15%3A36Z&sr=b&sp=r&sig=BYAiZNedJiqO49pSVUEfdEFuPca6RhExQ%2B1DMwOjAI4%3D'
-titanicUri <- 'C:\\Git\\Avid.MachineLearning\\Lesson01\\Data\\Titanic.train.csv'
+titanicUri <- 'C:\\Git\\SqlSaturday.Raleigh.2017\\Data\\Titanic.csv'
 titanic <- read.csv(titanicUri, header = TRUE)
+View(titanic)
+nrow(titanic)
 
 titanic <- titanic[complete.cases(titanic),]
 titanic$AgeGroup <- cut(titanic$Age, c(0,13,100), labels=c("Young","Old"))
 summary(titanic)
-
-#airquality$TempRange <- cut(airquality$Temp, c(0,25,50,75,100), labels=c("cold","mild","nice","hot"))
-
-
-#Review Data
-View(titanic)
-head(titanic)
-summary(titanic)
+nrow(titanic)
 
 titanic$Pclass <- as.factor(titanic$Pclass)
 titanic$Survived <- as.factor(titanic$Survived)
@@ -42,6 +34,23 @@ library(datasets)
 titanic.split<-createDataPartition(y = titanic$Survived, p = 0.6, list = FALSE)
 titanic.train<-titanic[titanic.split,]
 titanic.test<-titanic[-titanic.split,]
+
+#Split by survived
+#255 died/174 lived
+#Split by Sex
+#276 male/153 female
+
+#153 Females
+#Split by Class
+#117 of survivors were in C class, 36 were in non C
+
+
+#cur.split <- titanic.train[titanic.train$Survived == '0',] 
+#cur.split <- titanic.train[titanic.train$Sex == 'male',] 
+#cur.split <- titanic.train[titanic.train$Pclass == 1,] 
+#nrow(cur.split)
+
+
 
 #Select Model
 library("rpart")
